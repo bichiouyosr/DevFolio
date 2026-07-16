@@ -9,3 +9,180 @@
 @import "./sections/contact";
 @import "./sections/hero";
 @import "./sections/projects";
+// ==========================================================================
+// OVERRIDES FOR EDITORIAL MINIMALIST LAYOUT (Khalil Zanzouri Inspiration)
+// ==========================================================================
+
+// 1. Typography & Global Colors
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+  background-color: #ffffff !important;
+  color: #1a1a1a !important;
+  line-height: 1.6 !important;
+}
+
+// 2. Container Constriction (Makes text highly readable)
+.container {
+  max-width: 1000px !important;
+}
+
+// 3. The Accent Color (A sharp, professional blue)
+.text-color-main {
+  color: #2563eb !important; 
+}
+
+.dark-blue-text {
+  color: #1a1a1a !important; // Override default blue titles to black
+}
+
+// 4. Left-Aligned Section Titles
+.section-title {
+  text-align: left !important;
+  text-transform: none !important;
+  font-size: 2.5rem !important;
+  font-weight: 800 !important;
+  margin-bottom: 3rem !important;
+  color: #1a1a1a !important;
+
+  &::after {
+    display: none !important; // Removes the default DevFolio underline
+  }
+}
+
+// 5. Hero Section (Left-aligned, spacious, no gradients)
+#hero {
+  text-align: left !important;
+  background: #ffffff !important;
+  min-height: 85vh !important;
+  display: flex !important;
+  align-items: center !important;
+  padding-top: 5rem !important;
+  
+  .hero-title {
+    font-size: 3.5rem !important;
+    font-weight: 800 !important;
+    line-height: 1.2 !important;
+    color: #1a1a1a !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .hero-cta {
+    justify-content: flex-start !important;
+  }
+}
+
+.hero-stats {
+  font-weight: 400 !important;
+  font-size: 1rem !important;
+  color: #4b5563 !important;
+  
+  span {
+    font-weight: 700 !important;
+    font-size: 1.5rem !important;
+  }
+}
+
+// 6. Buttons (Minimalist Outlines & Solid Black)
+.cta-btn {
+  border-radius: 6px !important;
+  border: 1px solid #1a1a1a !important;
+  background: transparent !important;
+  color: #1a1a1a !important;
+  padding: 0.8rem 1.5rem !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  text-transform: none !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease !important;
+  
+  &:hover {
+    background: #1a1a1a !important;
+    color: #ffffff !important;
+  }
+}
+
+.cta-btn--hero {
+  background: #1a1a1a !important;
+  color: #ffffff !important;
+  
+  &:hover {
+    background: #333333 !important;
+  }
+}
+
+.cta-btn--projects {
+  background: transparent !important;
+  color: #1a1a1a !important;
+}
+
+// 7. Sections Restyling
+section {
+  padding: 6rem 0 !important;
+  background: #ffffff !important; 
+}
+
+#skills, #education {
+  background-color: #f9fafb !important; // Subtle off-white for separation
+}
+
+.about-wrapper__info-text {
+  font-size: 1.2rem !important;
+  color: #4b5563 !important;
+}
+
+// 8. Experience & Projects Grid (Removing heavy shadows)
+.project-wrapper__text {
+  text-align: left !important;
+  padding: 0 !important;
+  
+  .project-wrapper__text-title {
+    font-weight: 700 !important;
+    margin-bottom: 0.5rem !important;
+    font-size: 1.5rem !important;
+    text-transform: none !important;
+  }
+
+  .project-wrapper__text-info {
+    font-size: 1.1rem !important;
+    color: #4b5563 !important;
+    line-height: 1.6 !important;
+  }
+}
+
+.project-wrapper__image {
+  .thumbnail {
+    border: 1px solid #e5e7eb !important;
+    box-shadow: none !important; // Removes heavy card shadows
+    border-radius: 8px !important;
+    background: #f9fafb !important;
+    transition: transform 0.3s ease !important;
+
+    &:hover {
+      transform: translateY(-5px) !important;
+    }
+  }
+}
+
+// 9. Clean up Footer
+.footer {
+  background: #ffffff !important;
+  color: #1a1a1a !important;
+  border-top: 1px solid #e5e7eb !important;
+  padding: 3rem 0 !important;
+
+  .social-links a {
+    color: #1a1a1a !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    font-size: 1.5rem !important;
+
+    &:hover {
+      color: #2563eb !important;
+      transform: translateY(-3px) !important;
+    }
+  }
+
+  hr {
+    border-color: #e5e7eb !important;
+  }
+}
