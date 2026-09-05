@@ -158,7 +158,8 @@
     .hero-inner { position: relative; z-index: 1; }
     .hero-top { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center; }
     h1 { font-family: var(--display-font); font-size: 3.4rem; font-weight: 600; line-height: 1.08; margin-bottom: 10px; }
-    .role { font-size: 1.3rem; color: var(--ink-soft); font-weight: 500; margin-bottom: 26px; }
+    .role { font-size: 1.3rem; color: var(--ink-soft); font-weight: 500; margin-bottom: 26px; min-height: 1.6em; }
+    #role-text { color: var(--ink-soft); }
     .cursor { display: inline-block; margin-left: 3px; color: var(--accent); font-weight: 400; animation: blink 1.1s step-start infinite; }
     @keyframes blink { 50% { opacity: 0; } }
     .hero-desc { font-size: 1.1rem; color: var(--ink-soft); max-width: 600px; margin-bottom: 34px; }
@@ -195,9 +196,20 @@
 
     /* About */
     .about-grid { display: grid; grid-template-columns: 0.9fr 1.6fr; gap: 56px; align-items: start; }
-    .about-photo-wrap { position: relative; }
-    .about-photo-frame { position: absolute; inset: 0; transform: translate(16px, 16px); border: 2px solid var(--accent); border-radius: 8px; z-index: 0; }
-    .about-photo { position: relative; z-index: 1; width: 100%; border-radius: 8px; object-fit: cover; box-shadow: 0 20px 40px var(--shadow); }
+    .about-photo-wrap { position: relative; margin-bottom: 22px; }
+    .about-photo-wrap::before {
+      content: ""; position: absolute; inset: -18px; z-index: 0; border-radius: 20px;
+      background: linear-gradient(160deg, var(--accent-soft), transparent 65%);
+      filter: blur(4px);
+    }
+    .about-photo { position: relative; z-index: 1; width: 100%; border-radius: 14px; object-fit: cover; box-shadow: 0 20px 40px var(--shadow); }
+    .about-badge {
+      position: absolute; z-index: 2; left: 50%; bottom: -18px; transform: translateX(-50%);
+      background: var(--card); border: 1px solid var(--line); box-shadow: 0 10px 24px var(--shadow);
+      border-radius: 999px; padding: 9px 18px; font-size: 0.82rem; font-weight: 700;
+      display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; color: var(--ink);
+    }
+    .about-badge i { color: var(--accent); }
     .about-text p { color: var(--ink-soft); font-size: 1.08rem; margin-bottom: 20px; }
     .about-text p:last-child { margin-bottom: 0; }
 
@@ -235,10 +247,12 @@
     }
     .acc-item summary::-webkit-details-marker { display: none; }
     .acc-avatar {
-      flex: 0 0 44px; width: 44px; height: 44px; border-radius: 50%;
+      flex: 0 0 46px; width: 46px; height: 46px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      color: #fff; font-family: var(--display-font); font-weight: 600; font-size: 1.05rem;
+      background: #fff; border: 1px solid var(--line); padding: 8px;
+      box-shadow: 0 2px 6px var(--shadow);
     }
+    .acc-avatar img { width: 100%; height: 100%; object-fit: contain; }
     .acc-head-text { flex: 1 1 220px; }
     .acc-head-text h3 { font-size: 1.15rem; margin-bottom: 2px; font-weight: 700; }
     .acc-head-text .meta { color: var(--ink-soft); font-size: 0.9rem; }
@@ -349,7 +363,7 @@
         <div>
           <div class="eyebrow"><span class="eyebrow-dot"></span>Hello</div>
           <h1>Yoser Bichiou</h1>
-          <p class="role">Data Scientist in Paris<span class="cursor">|</span></p>
+          <p class="role"><span id="role-text"></span><span class="cursor">|</span></p>
           <p class="hero-desc">
             I build <mark>machine learning</mark> systems and scalable <mark>data pipelines</mark>. From <mark>predictive forecasting</mark> to <mark>IoT sensor analysis</mark>, I turn massive datasets into actionable operational decisions.
           </p>
@@ -377,8 +391,8 @@
       <h2 class="section-title">A little about me</h2>
       <div class="about-grid">
         <div class="about-photo-wrap">
-          <div class="about-photo-frame"></div>
           <img class="about-photo" src="./assets/profile.jpg" alt="Yoser Bichiou" />
+          <div class="about-badge"><i class="fa-solid fa-location-dot"></i> Paris, France</div>
         </div>
 
         <div class="about-text">
@@ -485,7 +499,7 @@
 
       <details class="acc-item" open>
         <summary>
-          <div class="acc-avatar" style="background: var(--accent);">L</div>
+          <div class="acc-avatar"><img src="./assets/logos/lidl.png" alt="Lidl logo" /></div>
           <div class="acc-head-text">
             <h3>Lidl France</h3>
             <div class="meta">Data Science Apprentice &bull; Paris</div>
@@ -502,7 +516,7 @@
 
       <details class="acc-item">
         <summary>
-          <div class="acc-avatar" style="background: var(--accent-2);">U</div>
+          <div class="acc-avatar"><img src="./assets/logos/unisphere.png" alt="Unisphere logo" /></div>
           <div class="acc-head-text">
             <h3>Unisphere GmbH</h3>
             <div class="meta">Data Scientist &bull; Konstanz, Germany</div>
@@ -519,7 +533,7 @@
 
       <details class="acc-item">
         <summary>
-          <div class="acc-avatar" style="background: #c98d3a;">U</div>
+          <div class="acc-avatar"><img src="./assets/logos/unfrauded.png" alt="Unfrauded logo" /></div>
           <div class="acc-head-text">
             <h3>Unfrauded</h3>
             <div class="meta">Machine Learning Intern</div>
@@ -574,49 +588,32 @@
         </div>
 
         <div class="project-card">
-          <div class="project-banner" style="background: linear-gradient(135deg, #c98d3a, var(--accent-soft));">
-            <span class="badge"><i class="fa-solid fa-lock"></i> Private</span>
+          <div class="project-banner" style="background: linear-gradient(135deg, #c98d3a, var(--accent));">
+            <span class="badge"><i class="fa-solid fa-lock-open"></i> Open source</span>
           </div>
           <div class="project-body">
-            <h3>IoT Predictive Health Monitor</h3>
-            <p>I developed a smart gadget and Flutter mobile app with an integrated AI prediction component. It allows doctors to access and visualize real-time patient health data for predictive healthcare.</p>
-            <p class="metric-text">Real-time constant monitoring</p>
-            <div class="tags-row"><span class="pill">IoT</span><span class="pill">Flutter</span><span class="pill">Predictive AI</span></div>
+            <h3>Paris Property Price Predictor</h3>
+            <p>A model that predicts the asking price of a Paris apartment from its listing details. The harder part was the data itself: about one row in twelve had to be cleaned or dropped before a Random Forest could reach an average error of about &euro;45,000.</p>
+            <div class="metric"><span class="metric-num">100k</span><span class="metric-label">Paris listings analyzed</span></div>
+            <div class="tags-row"><span class="pill">Python</span><span class="pill">Random Forest</span><span class="pill">Data Cleaning</span></div>
+            <a href="https://github.com/bichiouyosr/paris-property-price_prediction" target="_blank" class="github-link">
+              <i class="fa-brands fa-github"></i> View Code
+            </a>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- BLOG SECTION -->
-  <section id="blog" class="bg-alt">
-    <div class="container">
-      <div class="eyebrow"><span class="eyebrow-dot"></span>Blog</div>
-      <h2 class="section-title">Articles</h2>
-      <div class="edu-grid">
-        <div class="interactive-card list-item">
-          <div class="meta">Coming Soon &bull; 2026</div>
-          <h3>The Future of LLMs in Data Engineering</h3>
-          <p>Exploring how large language models are transforming ETL pipelines, skill extraction, and data normalization in production.</p>
-        </div>
-        <div class="interactive-card list-item">
-          <div class="meta">Coming Soon &bull; 2026</div>
-          <h3>Predictive Maintenance with PySpark</h3>
-          <p>A deep dive into processing millions of sensor records to predict hardware anomalies before they happen.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- EDUCATION SECTION -->
-  <section id="education">
+  <section id="education" class="bg-alt">
     <div class="container">
       <div class="eyebrow"><span class="eyebrow-dot"></span>Education</div>
       <h2 class="section-title">Where I studied</h2>
 
       <details class="acc-item" open>
         <summary>
-          <div class="acc-avatar" style="background: var(--accent);">E</div>
+          <div class="acc-avatar"><img src="./assets/logos/edc.png" alt="EDC Paris Business School logo" /></div>
           <div class="acc-head-text">
             <h3>EDC Paris Business School</h3>
             <div class="meta">Master in Data Science &amp; Business Analysis &bull; Paris</div>
@@ -630,7 +627,7 @@
 
       <details class="acc-item">
         <summary>
-          <div class="acc-avatar" style="background: var(--accent-2);">I</div>
+          <div class="acc-avatar"><img src="./assets/logos/insat.png" alt="INSAT logo" /></div>
           <div class="acc-head-text">
             <h3>INSAT</h3>
             <div class="meta">National Engineering Diploma, Intelligent Systems (AI) &bull; Tunis</div>
@@ -645,7 +642,7 @@
   </section>
 
   <!-- CONTACT SECTION -->
-  <section id="contact" class="bg-alt">
+  <section id="contact">
     <div class="container">
       <div class="eyebrow"><span class="eyebrow-dot"></span>Contact</div>
       <h2 class="section-title">Say hello</h2>
@@ -746,63 +743,123 @@
     const track = document.getElementById("marquee-track");
     track.innerHTML += track.innerHTML;
 
-    // Hero particle network background
-    const canvas = document.getElementById("particles");
+    // Typewriter role cycler
+    const roleEl = document.getElementById("role-text");
+    const roles = ["Data Scientist in Paris", "Machine Learning Engineer", "Data Pipeline Builder"];
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) {
+      roleEl.textContent = roles[0];
+    } else {
+      let roleIndex = 0, charIndex = 0, deleting = false;
+      function typeRole() {
+        const current = roles[roleIndex];
+        charIndex += deleting ? -1 : 1;
+        roleEl.textContent = current.slice(0, charIndex);
+        let delay = deleting ? 35 : 65;
+        if (!deleting && charIndex === current.length) { delay = 1800; deleting = true; }
+        else if (deleting && charIndex === 0) { deleting = false; roleIndex = (roleIndex + 1) % roles.length; delay = 300; }
+        setTimeout(typeRole, delay);
+      }
+      typeRole();
+    }
+
+    // Hero background: a layered neural network, pulses traveling along its edges
+    const canvas = document.getElementById("particles");
     if (canvas && !reduceMotion) {
       const ctx = canvas.getContext("2d");
-      let w, h, particles;
+      let w, h, layers, edges, pulses;
 
       function resize() {
         const hero = document.getElementById("hero");
         w = canvas.width = hero.offsetWidth;
         h = canvas.height = hero.offsetHeight;
       }
-      function initParticles() {
-        const count = Math.min(60, Math.floor((w * h) / 22000));
-        particles = Array.from({ length: count }, () => ({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.22,
-          vy: (Math.random() - 0.5) * 0.22,
-        }));
+
+      function buildNetwork() {
+        const layerSizes = [4, 6, 6, 5, 3];
+        const marginX = w * 0.06;
+        const usableW = w - marginX * 2;
+        layers = layerSizes.map((count, li) => {
+          const x = marginX + (usableW * li) / (layerSizes.length - 1);
+          const nodes = [];
+          for (let i = 0; i < count; i++) {
+            const y = (h * (i + 1)) / (count + 1) + (Math.random() - 0.5) * h * 0.04;
+            nodes.push({ x, y });
+          }
+          return nodes;
+        });
+
+        edges = [];
+        for (let li = 0; li < layers.length - 1; li++) {
+          layers[li].forEach((from, fi) => {
+            const targets = 2 + Math.floor(Math.random() * 2);
+            for (let t = 0; t < targets; t++) {
+              const to = layers[li + 1][Math.floor(Math.random() * layers[li + 1].length)];
+              edges.push({ from, to, layer: li });
+            }
+          });
+        }
+        pulses = [];
       }
+
+      function spawnPulse() {
+        const edge = edges[Math.floor(Math.random() * edges.length)];
+        pulses.push({ edge, t: 0, speed: 0.012 + Math.random() * 0.01 });
+      }
+
       function colors() {
         const dark = root.getAttribute("data-theme") === "dark";
         return dark
-          ? { dot: "rgba(242,143,176,0.55)", line: "rgba(242,143,176,0.14)" }
-          : { dot: "rgba(209,72,122,0.32)", line: "rgba(209,72,122,0.12)" };
+          ? { node: "#f28fb0", edge: "rgba(242,143,176,0.16)", pulse: "#ffd9e8" }
+          : { node: "#d1487a", edge: "rgba(209,72,122,0.14)", pulse: "#ffffff" };
       }
+
+      let frame = 0;
       function tick() {
+        frame++;
         ctx.clearRect(0, 0, w, h);
-        const { dot, line } = colors();
-        particles.forEach((p) => {
-          p.x += p.vx; p.y += p.vy;
-          if (p.x < 0 || p.x > w) p.vx *= -1;
-          if (p.y < 0 || p.y > h) p.vy *= -1;
+        const { node, edge: edgeColor, pulse: pulseColor } = colors();
+
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = edgeColor;
+        edges.forEach((e) => {
+          ctx.beginPath();
+          ctx.moveTo(e.from.x, e.from.y);
+          ctx.lineTo(e.to.x, e.to.y);
+          ctx.stroke();
         });
-        for (let i = 0; i < particles.length; i++) {
-          for (let j = i + 1; j < particles.length; j++) {
-            const a = particles[i], b = particles[j];
-            const dx = a.x - b.x, dy = a.y - b.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 130) {
-              ctx.strokeStyle = line;
-              ctx.lineWidth = 1;
-              ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
-            }
-          }
-        }
-        particles.forEach((p) => {
-          ctx.fillStyle = dot;
-          ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI * 2); ctx.fill();
+
+        layers.flat().forEach((n) => {
+          ctx.fillStyle = node;
+          ctx.globalAlpha = 0.75;
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, 3.2, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.globalAlpha = 1;
         });
+
+        if (frame % 26 === 0 && pulses.length < 14) spawnPulse();
+        pulses.forEach((p) => { p.t += p.speed; });
+        pulses = pulses.filter((p) => p.t < 1);
+        pulses.forEach((p) => {
+          const x = p.edge.from.x + (p.edge.to.x - p.edge.from.x) * p.t;
+          const y = p.edge.from.y + (p.edge.to.y - p.edge.from.y) * p.t;
+          ctx.fillStyle = pulseColor;
+          ctx.shadowColor = pulseColor;
+          ctx.shadowBlur = 8;
+          ctx.beginPath();
+          ctx.arc(x, y, 2.6, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        });
+
         requestAnimationFrame(tick);
       }
-      resize(); initParticles(); tick();
-      window.addEventListener("resize", () => { resize(); initParticles(); });
+
+      resize(); buildNetwork(); tick();
+      window.addEventListener("resize", () => { resize(); buildNetwork(); });
       if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(() => { resize(); initParticles(); });
+        document.fonts.ready.then(() => { resize(); buildNetwork(); });
       }
     }
   </script>
