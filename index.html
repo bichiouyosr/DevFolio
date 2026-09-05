@@ -4,7 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Yoser Bichiou | Data Scientist</title>
-  
+
+  <meta name="description" content="Yoser Bichiou, Data Scientist in Paris. I build machine learning systems and scalable data pipelines, from predictive forecasting to IoT sensor analysis." />
+  <meta name="theme-color" content="#2563eb" />
+
+  <!-- Open Graph / social preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Yoser Bichiou | Data Scientist" />
+  <meta property="og:description" content="I build machine learning systems and scalable data pipelines. From predictive forecasting to IoT sensor analysis, I turn massive datasets into actionable operational decisions." />
+  <meta property="og:image" content="https://bichiouyosr.github.io/DevFolio/assets/profile.jpg" />
+  <meta property="og:url" content="https://bichiouyosr.github.io/DevFolio/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Yoser Bichiou | Data Scientist" />
+  <meta name="twitter:description" content="I build machine learning systems and scalable data pipelines." />
+  <meta name="twitter:image" content="https://bichiouyosr.github.io/DevFolio/assets/profile.jpg" />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-size='26' font-weight='700' fill='white' text-anchor='middle'%3EYB%3C/text%3E%3C/svg%3E" />
+
   <!-- Modern Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
@@ -12,6 +28,7 @@
   <!-- UPDATED DESIGN: Animated Background & Interactive Cards -->
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     
     /* Interactive Animated Background */
     body { 
@@ -31,10 +48,56 @@
 
     a { text-decoration: none; color: inherit; transition: all 0.2s; }
     .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
-    section { padding: 80px 0; }
-    
+    section { padding: 80px 0; scroll-margin-top: 76px; }
+
+    /* Nav bar */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .nav-logo { font-weight: 800; font-size: 1.15rem; color: #111; }
+    .nav-logo span { color: #2563eb; }
+    .nav-links { display: flex; gap: 8px; list-style: none; }
+    .nav-links a {
+      display: block; padding: 8px 14px; border-radius: 8px;
+      font-weight: 600; font-size: 0.92rem; color: #4b5563;
+    }
+    .nav-links a:hover, .nav-links a.active { color: #111; background: rgba(37, 99, 235, 0.08); }
+    .nav-toggle {
+      display: none; background: none; border: none; font-size: 1.4rem;
+      color: #111; cursor: pointer; padding: 8px;
+    }
+    @media (max-width: 768px) {
+      .nav-toggle { display: block; }
+      .nav-links {
+        position: absolute; top: 64px; left: 0; right: 0;
+        flex-direction: column; gap: 0; background: #fff;
+        border-bottom: 1px solid rgba(0,0,0,0.06);
+        max-height: 0; overflow: hidden; transition: max-height 0.25s ease;
+      }
+      .nav-links.open { max-height: 400px; }
+      .nav-links a { padding: 14px 24px; border-radius: 0; }
+    }
+
+    /* Back to top */
+    #back-to-top {
+      position: fixed; bottom: 28px; right: 28px; z-index: 99;
+      width: 46px; height: 46px; border-radius: 50%;
+      background: #111; color: #fff; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+      opacity: 0; pointer-events: none; transform: translateY(10px);
+      transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+    }
+    #back-to-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    #back-to-top:hover { background: #2563eb; }
+
     /* Hero Section */
-    #hero { padding-top: 15vh; min-height: 70vh; }
+    #hero { padding-top: calc(15vh + 64px); min-height: 70vh; }
     h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 24px; }
     h1 span { color: #2563eb; display: block; margin-top: 8px; }
     .hero-desc { font-size: 1.25rem; color: #4b5563; max-width: 650px; margin-bottom: 40px; }
@@ -126,6 +189,24 @@
   </style>
 </head>
 <body>
+
+  <!-- NAV BAR -->
+  <nav id="navbar">
+    <div class="container nav-inner">
+      <a href="#hero" class="nav-logo">Yoser<span>.</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
 
   <!-- HERO SECTION -->
   <section id="hero">
@@ -305,16 +386,16 @@
     <div class="container">
       <h2 class="section-title">Blog & Articles</h2>
       <div class="edu-grid">
-        <a href="#!" class="interactive-card list-item" style="display: block; margin-bottom: 0;">
+        <div class="interactive-card list-item" style="margin-bottom: 0;">
           <div class="meta">Coming Soon • 2026</div>
           <h3 style="margin-bottom: 12px; color: #111;">The Future of LLMs in Data Engineering</h3>
           <p style="margin-bottom: 0;">Exploring how large language models are transforming ETL pipelines, skill extraction, and data normalization in production.</p>
-        </a>
-        <a href="#!" class="interactive-card list-item" style="display: block; margin-bottom: 0;">
+        </div>
+        <div class="interactive-card list-item" style="margin-bottom: 0;">
           <div class="meta">Coming Soon • 2026</div>
           <h3 style="margin-bottom: 12px; color: #111;">Predictive Maintenance with PySpark</h3>
           <p style="margin-bottom: 0;">A deep dive into processing millions of sensor records to predict hardware anomalies before they happen.</p>
-        </a>
+        </div>
       </div>
     </div>
   </section>
@@ -367,8 +448,52 @@
     </div>
   </footer>
 
+  <!-- BACK TO TOP -->
+  <button id="back-to-top" aria-label="Back to top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Mobile nav toggle
+    const navToggle = document.getElementById("nav-toggle");
+    const navLinks = document.getElementById("nav-links");
+    navToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      navToggle.setAttribute("aria-expanded", isOpen);
+    });
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    // Highlight the nav link for the section currently in view
+    const navAnchors = navLinks.querySelectorAll("a");
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const id = entry.target.getAttribute("id");
+          navAnchors.forEach((a) => {
+            a.classList.toggle("active", a.getAttribute("href") === `#${id}`);
+          });
+        });
+      },
+      { rootMargin: "-40% 0px -55% 0px" }
+    );
+    document.querySelectorAll("section[id]").forEach((s) => sectionObserver.observe(s));
+
+    // Back-to-top visibility + click
+    const backToTop = document.getElementById("back-to-top");
+    window.addEventListener("scroll", () => {
+      backToTop.classList.toggle("visible", window.scrollY > 500);
+    });
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
   </script>
 </body>
 </html>
