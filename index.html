@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yoser Bichiou | Data Scientist</title>
+  <title>Yoser Bichiou | Data Science Engineer</title>
 
-  <meta name="description" content="Yoser Bichiou, Data Scientist in Paris. I build machine learning systems and scalable data pipelines, from predictive forecasting to IoT sensor analysis." />
+  <meta name="description" content="Yoser Bichiou, Data Science Engineer in Paris. I build machine learning systems and scalable data pipelines, from predictive forecasting to LLM-based skill extraction." />
   <meta name="theme-color" content="#d1487a" />
 
   <!-- Open Graph / social preview -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Yoser Bichiou | Data Scientist" />
-  <meta property="og:description" content="I build machine learning systems and scalable data pipelines. From predictive forecasting to IoT sensor analysis, I turn massive datasets into actionable operational decisions." />
+  <meta property="og:title" content="Yoser Bichiou | Data Science Engineer" />
+  <meta property="og:description" content="I build machine learning systems and scalable data pipelines. From predictive forecasting to LLM-based skill extraction, I turn massive datasets into actionable operational decisions." />
   <meta property="og:image" content="https://bichiouyosr.github.io/DevFolio/assets/profile.jpg" />
   <meta property="og:url" content="https://bichiouyosr.github.io/DevFolio/" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Yoser Bichiou | Data Scientist" />
+  <meta name="twitter:title" content="Yoser Bichiou | Data Science Engineer" />
   <meta name="twitter:description" content="I build machine learning systems and scalable data pipelines." />
   <meta name="twitter:image" content="https://bichiouyosr.github.io/DevFolio/assets/profile.jpg" />
 
@@ -42,6 +42,7 @@
       --accent: #d1487a;
       --accent-2: #b98cce;
       --accent-soft: #fbe4ec;
+      --gold: #d4a373;
       --line: #f0dde3;
       --shadow: rgba(36, 23, 35, 0.08);
 
@@ -58,6 +59,7 @@
       --accent: #f28fb0;
       --accent-2: #d3a6e6;
       --accent-soft: rgba(242, 143, 176, 0.16);
+      --gold: #e0b688;
       --line: #40293d;
       --shadow: rgba(0, 0, 0, 0.35);
     }
@@ -68,6 +70,7 @@
       color: var(--ink);
       line-height: 1.6;
       transition: background 0.25s ease, color 0.25s ease;
+      position: relative;
     }
     a { text-decoration: none; color: inherit; transition: all 0.2s; }
     img { max-width: 100%; display: block; }
@@ -79,8 +82,26 @@
       font-weight: 600;
     }
     .container { max-width: 940px; margin: 0 auto; padding: 0 24px; position: relative; }
-    section { padding: 90px 0; scroll-margin-top: 76px; }
-    .bg-alt { background: var(--bg-alt); }
+    section { padding: 90px 0; scroll-margin-top: 76px; position: relative; }
+    .bg-alt { background: color-mix(in srgb, var(--bg-alt) 82%, transparent); }
+
+    /* Ambient background: soft moving color fields, visible through the
+       whole page rather than one section — the AI motif here is "diffuse
+       generative color," not a network diagram. */
+    .ambient-layer { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.32; }
+    [data-theme="dark"] .blob { opacity: 0.4; }
+    .blob-a { width: 480px; height: 480px; background: var(--accent); top: -160px; left: -120px; animation: blobA 30s ease-in-out infinite; }
+    .blob-b { width: 420px; height: 420px; background: var(--accent-2); top: 20%; right: -160px; animation: blobB 36s ease-in-out infinite; }
+    .blob-c { width: 380px; height: 380px; background: var(--gold); top: 55%; left: 10%; animation: blobC 26s ease-in-out infinite; }
+    .blob-d { width: 340px; height: 340px; background: var(--accent-2); bottom: -140px; right: 8%; animation: blobA 33s ease-in-out infinite reverse; }
+    .blob-e { width: 300px; height: 300px; background: var(--accent); bottom: 10%; left: -100px; animation: blobB 24s ease-in-out infinite reverse; }
+    @keyframes blobA { 0%, 100% { transform: translate(0,0) scale(1); } 50% { transform: translate(70px, 90px) scale(1.18); } }
+    @keyframes blobB { 0%, 100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-60px, 70px) scale(0.88); } }
+    @keyframes blobC { 0%, 100% { transform: translate(0,0) scale(1); } 50% { transform: translate(60px, -80px) scale(1.12); } }
+    @media (prefers-reduced-motion: reduce) { .blob { animation: none; } }
+    body > * { position: relative; z-index: 1; }
+    .ambient-layer { z-index: 0; }
 
     .eyebrow {
       display: flex; align-items: center; gap: 9px;
@@ -96,9 +117,9 @@
     /* Nav bar */
     #navbar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: color-mix(in srgb, var(--bg) 85%, transparent);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--line);
     }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
@@ -147,15 +168,13 @@
     #back-to-top:hover { background: var(--accent); color: #fff; }
 
     /* Hero */
-    #hero { position: relative; padding-top: calc(13vh + 64px); overflow: hidden; }
-    #particles { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+    #hero { padding-top: calc(13vh + 64px); }
     .side-label {
       position: absolute; left: 26px; top: 55%; transform: translateY(-50%) rotate(180deg);
       writing-mode: vertical-rl; font-size: 0.72rem; letter-spacing: 4px; color: var(--ink-soft);
-      display: none; z-index: 1;
+      display: none;
     }
     @media (min-width: 1100px) { .side-label { display: block; } }
-    .hero-inner { position: relative; z-index: 1; }
     .hero-top { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center; }
     h1 { font-family: var(--display-font); font-size: 3.4rem; font-weight: 600; line-height: 1.08; margin-bottom: 10px; }
     .role { font-size: 1.3rem; color: var(--ink-soft); font-weight: 500; margin-bottom: 26px; min-height: 1.6em; }
@@ -237,19 +256,21 @@
       background: var(--accent-soft); color: var(--ink); border: 1px solid var(--line);
       padding: 6px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 600;
     }
+    .pill.pill-sm { font-size: 0.78rem; padding: 4px 11px; font-weight: 500; }
 
-    /* Accordion (Experience / Education) */
+    /* Accordion (Experience / Education) — hover to expand on desktop,
+       tap to toggle on touch devices. */
     .acc-item { border-top: 1px solid var(--line); }
     .acc-item:last-child { border-bottom: 1px solid var(--line); }
-    .acc-item summary {
-      list-style: none; cursor: pointer; display: flex; align-items: center;
-      gap: 18px; padding: 24px 0; flex-wrap: wrap;
+    .acc-summary {
+      background: none; border: none; font: inherit; color: inherit; text-align: left;
+      cursor: pointer; display: flex; align-items: center;
+      gap: 18px; padding: 24px 0; flex-wrap: wrap; width: 100%;
     }
-    .acc-item summary::-webkit-details-marker { display: none; }
     .acc-avatar {
-      flex: 0 0 46px; width: 46px; height: 46px; border-radius: 50%;
+      flex: 0 0 48px; width: 48px; height: 48px; border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
-      background: #fff; border: 1px solid var(--line); padding: 8px;
+      background: #fff; border: 1px solid var(--line); padding: 7px;
       box-shadow: 0 2px 6px var(--shadow);
     }
     .acc-avatar img { width: 100%; height: 100%; object-fit: contain; }
@@ -257,50 +278,64 @@
     .acc-head-text h3 { font-size: 1.15rem; margin-bottom: 2px; font-weight: 700; }
     .acc-head-text .meta { color: var(--ink-soft); font-size: 0.9rem; }
     .acc-right { display: flex; align-items: center; gap: 14px; color: var(--ink-soft); font-size: 0.85rem; white-space: nowrap; }
-    .acc-right .chev { transition: transform 0.2s ease; }
-    .acc-item[open] .acc-right .chev { transform: rotate(180deg); }
-    .acc-body { padding: 0 0 28px 62px; }
-    .acc-body p { color: var(--ink-soft); margin-bottom: 16px; }
+    .acc-right .chev { transition: transform 0.25s ease; }
+    .acc-item.force-open .acc-right .chev { transform: rotate(180deg); }
+    .acc-body {
+      max-height: 0; overflow: hidden; padding-left: 66px;
+      transition: max-height 0.4s ease;
+    }
+    .acc-body-inner { padding-bottom: 28px; }
+    .acc-body p { color: var(--ink-soft); margin-bottom: 12px; }
+    .acc-body ul { color: var(--ink-soft); margin: 0 0 14px; padding-left: 18px; font-size: 0.96rem; }
+    .acc-body li { margin-bottom: 6px; }
+    @media (hover: hover) {
+      .acc-item:hover .acc-body { max-height: 900px; }
+      .acc-item:hover .acc-right .chev { transform: rotate(180deg); }
+    }
+    .acc-item.force-open .acc-body { max-height: 900px; }
     @media (max-width: 600px) { .acc-body { padding-left: 0; } }
 
     .tags-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .languages-line { margin-top: 30px; color: var(--ink-soft); font-size: 0.95rem; }
+    .languages-line strong { color: var(--ink); }
 
-    /* Projects */
-    .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; }
-    .project-card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
-    .project-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px var(--shadow); }
-    .project-banner { height: 108px; position: relative; }
-    .badge {
-      position: absolute; top: 14px; left: 14px; background: rgba(255,255,255,0.92); color: #241723;
-      font-size: 0.72rem; font-weight: 700; padding: 5px 12px; border-radius: 999px;
-      display: inline-flex; align-items: center; gap: 6px;
+    /* Projects — numbered rows, matching the Expertise numbering rather
+       than a photo-card grid. */
+    .project-row {
+      display: grid; grid-template-columns: 64px 1fr; gap: 24px;
+      padding: 40px 0; border-top: 1px solid var(--line);
     }
-    .project-body { padding: 26px; }
-    .project-body h3 { font-size: 1.2rem; margin-bottom: 10px; font-weight: 700; }
-    .project-body p { color: var(--ink-soft); margin-bottom: 14px; font-size: 0.96rem; }
-    .metric { display: inline-flex; align-items: baseline; gap: 8px; padding-top: 10px; border-top: 2px solid var(--accent); margin-bottom: 16px; }
-    .metric-num { font-family: var(--display-font); font-size: 1.5rem; font-weight: 600; }
+    .project-list .project-row:last-child { border-bottom: 1px solid var(--line); }
+    .project-num { font-family: var(--display-font); font-size: 2rem; font-weight: 600; color: var(--accent); }
+    .project-top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+    .project-top h3 { font-size: 1.3rem; font-weight: 700; }
+    .badge-inline {
+      background: var(--accent-soft); color: var(--ink); font-size: 0.72rem; font-weight: 700;
+      padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .project-row p { color: var(--ink-soft); font-size: 0.98rem; margin-bottom: 12px; }
+    .project-points { margin: 0 0 16px; padding-left: 20px; color: var(--ink-soft); font-size: 0.95rem; }
+    .project-points li { margin-bottom: 6px; }
+    .metric-inline { display: inline-flex; align-items: baseline; gap: 8px; padding-top: 10px; border-top: 2px solid var(--accent); margin-bottom: 16px; }
+    .metric-num { font-family: var(--display-font); font-size: 1.4rem; font-weight: 600; }
     .metric-label { color: var(--ink-soft); font-size: 0.85rem; }
-    .metric-text { font-weight: 700; margin-bottom: 16px; font-size: 0.95rem; }
     .github-link {
       font-size: 0.88rem; color: var(--accent); font-weight: 700; display: inline-flex;
       align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px;
-      background: var(--accent-soft); margin-top: 14px;
+      background: var(--accent-soft); margin-top: 4px;
     }
     .github-link:hover { background: var(--accent); color: #fff; }
-
-    /* Blog */
-    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
-    .list-item .meta { color: var(--ink-soft); font-size: 0.9rem; margin-bottom: 10px; font-weight: 600; }
-    .list-item h3 { font-size: 1.2rem; margin-bottom: 10px; font-weight: 700; }
-    .list-item p { color: var(--ink-soft); font-size: 0.98rem; }
+    @media (max-width: 600px) {
+      .project-row { grid-template-columns: 1fr; }
+      .project-num { font-size: 1.4rem; }
+    }
 
     /* Contact */
-    .contact-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 22px; }
+    .contact-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-bottom: 22px; }
     .tile {
       display: flex; align-items: center; justify-content: center; gap: 10px;
       border: 1px solid var(--line); border-radius: 12px; padding: 18px;
-      font-weight: 600; background: var(--card); font-size: 0.92rem;
+      font-weight: 600; background: var(--card); font-size: 0.9rem; text-align: center;
     }
     .tile:hover { border-color: var(--accent); color: var(--accent); }
 
@@ -316,7 +351,7 @@
 
     /* Mobile */
     @media (max-width: 768px) {
-      .about-grid, .expertise-grid, .skills-groups, .edu-grid, .contact-tiles { grid-template-columns: 1fr; }
+      .about-grid, .expertise-grid, .skills-groups { grid-template-columns: 1fr; }
       .hero-top { grid-template-columns: 1fr; text-align: center; }
       .hero-desc { margin-left: auto; margin-right: auto; }
       .hero-photo-wrap { order: -1; }
@@ -328,6 +363,14 @@
   </style>
 </head>
 <body>
+
+  <div class="ambient-layer" aria-hidden="true">
+    <span class="blob blob-a"></span>
+    <span class="blob blob-b"></span>
+    <span class="blob blob-c"></span>
+    <span class="blob blob-d"></span>
+    <span class="blob blob-e"></span>
+  </div>
 
   <!-- NAV BAR -->
   <nav id="navbar">
@@ -356,16 +399,15 @@
 
   <!-- HERO SECTION -->
   <section id="hero">
-    <canvas id="particles" aria-hidden="true"></canvas>
-    <div class="side-label">DATA SCIENTIST</div>
-    <div class="container hero-inner">
+    <div class="side-label">DATA SCIENCE ENGINEER</div>
+    <div class="container">
       <div class="hero-top">
         <div>
           <div class="eyebrow"><span class="eyebrow-dot"></span>Hello</div>
           <h1>Yoser Bichiou</h1>
           <p class="role"><span id="role-text"></span><span class="cursor">|</span></p>
           <p class="hero-desc">
-            I build <mark>machine learning</mark> systems and scalable <mark>data pipelines</mark>. From <mark>predictive forecasting</mark> to <mark>IoT sensor analysis</mark>, I turn massive datasets into actionable operational decisions.
+            I build <mark>machine learning</mark> systems and scalable <mark>data pipelines</mark>. From <mark>predictive forecasting</mark> to <mark>LLM-based skill extraction</mark>, I turn massive datasets into actionable operational decisions.
           </p>
           <a class="btn" href="./assets/YOSER_Bichiou_DS.pdf" target="_blank">
             <i class="fa-solid fa-file-arrow-down"></i> Download CV
@@ -396,8 +438,8 @@
         </div>
 
         <div class="about-text">
-          <p>I'm a <mark>Data Scientist</mark> and Industrial Engineer with a strong background in intelligent systems. I started my journey analyzing sensor data and IoT, and now I build predictive models and robust data pipelines for large-scale enterprise operations.</p>
-          <p>I build data intelligence for businesses: <mark>time-series forecasting</mark>, <mark>OCR data extraction</mark>, and ELT pipelines that run in production on millions of records using Databricks, Snowflake, and GCP.</p>
+          <p>I'm a <mark>Data Science Engineer</mark> and Industrial Engineer with a strong background in intelligent systems. I started my journey analyzing sensor data and IoT, and now I build predictive models and robust data pipelines for large-scale enterprise operations.</p>
+          <p>I build data intelligence for businesses: <mark>time-series forecasting</mark>, <mark>OCR and similarity-matching pipelines</mark>, and ETL/ELT pipelines that run in production on millions of records using Databricks, Snowflake, and GCP.</p>
           <p>One question drives my work: how can we bridge the gap between complex mathematical models and real-world business value? In an industry driven by efficiency, the right data pipeline saves actual time and money.</p>
         </div>
       </div>
@@ -423,7 +465,7 @@
         <div class="interactive-card expertise-item">
           <h3>03</h3>
           <h4>Data Engineering &amp; BI</h4>
-          <p>I package models and automate reporting. I migrate legacy tools to modern cloud ecosystems (GCP, BigQuery) and deploy production dashboards in Looker Studio and Power BI for real business users.</p>
+          <p>I package models and automate reporting. I migrate legacy tools to modern cloud ecosystems (GCP, BigQuery) and deploy production dashboards in Looker Studio and MicroStrategy for real business users.</p>
         </div>
       </div>
     </div>
@@ -442,7 +484,7 @@
           <div class="marquee-item"><i class="fa-solid fa-robot"></i><span>GenAI</span></div>
           <div class="marquee-item"><i class="fa-solid fa-chart-line"></i><span>Forecasting</span></div>
           <div class="marquee-item"><i class="fa-solid fa-snowflake"></i><span>Snowflake</span></div>
-          <div class="marquee-item"><i class="fa-solid fa-database"></i><span>PostgreSQL</span></div>
+          <div class="marquee-item"><i class="fa-solid fa-table-cells"></i><span>BigQuery</span></div>
           <div class="marquee-item"><i class="fa-brands fa-google"></i><span>GCP</span></div>
           <div class="marquee-item"><i class="fa-brands fa-docker"></i><span>Docker</span></div>
           <div class="marquee-item"><i class="fa-brands fa-git-alt"></i><span>Git</span></div>
@@ -452,39 +494,69 @@
 
       <div class="skills-groups">
         <div class="skill-group">
-          <h4>Machine Learning</h4>
+          <h4>Machine Learning &amp; AI</h4>
           <div class="pill-row">
-            <span class="pill">TensorFlow &amp; PyTorch</span>
-            <span class="pill">Scikit-learn</span>
-            <span class="pill">XGBoost &amp; LightGBM</span>
-            <span class="pill">Time Series</span>
-          </div>
-        </div>
-        <div class="skill-group">
-          <h4>GenAI &amp; LLM</h4>
-          <div class="pill-row">
+            <span class="pill">Supervised &amp; Unsupervised Learning</span>
+            <span class="pill">Regression</span>
+            <span class="pill">Classification</span>
+            <span class="pill">Clustering</span>
             <span class="pill">NLP</span>
-            <span class="pill">Qwen 3b</span>
-            <span class="pill">Prompting</span>
-            <span class="pill">Feature Extraction</span>
+            <span class="pill">GenAI &amp; LLMs</span>
           </div>
         </div>
         <div class="skill-group">
-          <h4>Data</h4>
+          <h4>Programming</h4>
           <div class="pill-row">
-            <span class="pill">Python &amp; Pandas</span>
-            <span class="pill">PostgreSQL</span>
-            <span class="pill">PySpark &amp; Databricks</span>
-            <span class="pill">Snowflake &amp; GCP</span>
+            <span class="pill">Python</span>
+            <span class="pill">SQL (MySQL)</span>
           </div>
         </div>
         <div class="skill-group">
-          <h4>DevOps &amp; Cloud</h4>
+          <h4>ML &amp; Data Libraries</h4>
           <div class="pill-row">
+            <span class="pill">TensorFlow</span>
+            <span class="pill">PyTorch</span>
+            <span class="pill">Keras</span>
+            <span class="pill">Scikit-learn</span>
+            <span class="pill">XGBoost</span>
+            <span class="pill">LightGBM</span>
+            <span class="pill">Pandas</span>
+            <span class="pill">NumPy</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>Data Engineering &amp; BI</h4>
+          <div class="pill-row">
+            <span class="pill">Power BI</span>
+            <span class="pill">Tableau</span>
+            <span class="pill">Looker Studio</span>
+            <span class="pill">MicroStrategy</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>Data Analysis</h4>
+          <div class="pill-row">
+            <span class="pill">Data Cleaning &amp; Transformation</span>
+            <span class="pill">Feature Engineering</span>
+            <span class="pill">Feature Selection</span>
+            <span class="pill">Data Visualization</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>DevOps &amp; MLOps</h4>
+          <div class="pill-row">
+            <span class="pill">Git</span>
+            <span class="pill">GitHub</span>
             <span class="pill">Docker</span>
-            <span class="pill">Git &amp; GitHub</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>Cloud &amp; Data Platforms</h4>
+          <div class="pill-row">
+            <span class="pill">Google Cloud Platform</span>
             <span class="pill">BigQuery</span>
-            <span class="pill">Cloud Run &amp; Scheduler</span>
+            <span class="pill">Databricks</span>
+            <span class="pill">Snowflake</span>
           </div>
         </div>
       </div>
@@ -496,57 +568,81 @@
     <div class="container">
       <div class="eyebrow"><span class="eyebrow-dot"></span>Experience</div>
       <h2 class="section-title">Where I worked</h2>
+      <p style="color:var(--ink-soft); font-size:0.92rem; margin-top:-30px; margin-bottom:10px;">Hover a row to see the details (tap on mobile).</p>
 
-      <details class="acc-item" open>
-        <summary>
+      <div class="acc-item">
+        <button class="acc-summary" type="button" aria-expanded="false">
           <div class="acc-avatar"><img src="./assets/logos/lidl.png" alt="Lidl logo" /></div>
           <div class="acc-head-text">
             <h3>Lidl France</h3>
-            <div class="meta">Data Science Apprentice &bull; Paris</div>
+            <div class="meta">Data Engineer Apprentice &bull; Paris</div>
           </div>
           <div class="acc-right"><span>09/2025 - 09/2026</span><span class="chev"><i class="fa-solid fa-chevron-down"></i></span></div>
-        </summary>
+        </button>
         <div class="acc-body">
-          <p>I designed and deployed time-series forecasting models on Databricks and Snowflake, improving accuracy by 42%. I built OCR pipelines to extract promotional data and migrated legacy reporting systems to GCP and Looker Studio.</p>
-          <div class="tags-row">
-            <span class="pill">PySpark</span><span class="pill">Databricks</span><span class="pill">Snowflake</span><span class="pill">BigQuery</span><span class="pill">Looker Studio</span>
+          <div class="acc-body-inner">
+            <ul>
+              <li>Designed, trained, and deployed a time-series forecasting model on Databricks and Snowflake, improving forecast accuracy by 42% and reducing stock shortages by 23%.</li>
+              <li>Developed an OCR and similarity-matching pipeline to extract product data from promotional flyers and invoices, achieving 70% extraction accuracy and automating data collection workflows.</li>
+              <li>Built and maintained ETL/ELT pipelines on BigQuery and Snowflake, processing 1M+ records with automated weekly refreshes for analytics and reporting.</li>
+              <li>Led the migration of a Microsoft ecosystem (Excel, VBA, App Script) to GCP (BigQuery, AppSheet, Looker Studio), eliminating manual processes and reducing reporting time by 80%.</li>
+              <li>Developed and deployed production dashboards in Looker Studio and MicroStrategy, serving 50+ business users.</li>
+            </ul>
+            <div class="tags-row">
+              <span class="pill pill-sm">PySpark</span><span class="pill pill-sm">Databricks</span><span class="pill pill-sm">Snowflake</span><span class="pill pill-sm">BigQuery</span><span class="pill pill-sm">Looker Studio</span><span class="pill pill-sm">GCP</span>
+            </div>
           </div>
         </div>
-      </details>
+      </div>
 
-      <details class="acc-item">
-        <summary>
+      <div class="acc-item">
+        <button class="acc-summary" type="button" aria-expanded="false">
           <div class="acc-avatar"><img src="./assets/logos/unisphere.png" alt="Unisphere logo" /></div>
           <div class="acc-head-text">
             <h3>Unisphere GmbH</h3>
             <div class="meta">Data Scientist &bull; Konstanz, Germany</div>
           </div>
           <div class="acc-right"><span>02/2024 - 09/2024</span><span class="chev"><i class="fa-solid fa-chevron-down"></i></span></div>
-        </summary>
+        </button>
         <div class="acc-body">
-          <p>I simulated 10,000+ flight scenarios using weather data to analyze drone routes. I developed digital twins that reduced simulation time by 40% and built automated footprint tools for flight risk assessment.</p>
-          <div class="tags-row">
-            <span class="pill">Python</span><span class="pill">Simulation</span><span class="pill">Digital Twins</span><span class="pill">Statistical Modeling</span>
+          <div class="acc-body-inner">
+            <ul>
+              <li>Simulated 10,000+ flight scenarios using weather data to analyze routes and trajectories.</li>
+              <li>Analyzed 5M+ weather records, improving risk model performance by 18%.</li>
+              <li>Developed digital twins for drones and air taxis, reducing simulation time by 40%.</li>
+              <li>Built a flight footprint tool to automate risk assessment across 1,000+ flight paths.</li>
+              <li>Developed a statistical risk model for UAV operations, improving prediction accuracy by 25%.</li>
+            </ul>
+            <div class="tags-row">
+              <span class="pill pill-sm">Python</span><span class="pill pill-sm">Simulation</span><span class="pill pill-sm">Digital Twins</span><span class="pill pill-sm">Statistical Modeling</span><span class="pill pill-sm">Risk Modeling</span>
+            </div>
           </div>
         </div>
-      </details>
+      </div>
 
-      <details class="acc-item">
-        <summary>
+      <div class="acc-item">
+        <button class="acc-summary" type="button" aria-expanded="false">
           <div class="acc-avatar"><img src="./assets/logos/unfrauded.png" alt="Unfrauded logo" /></div>
           <div class="acc-head-text">
             <h3>Unfrauded</h3>
-            <div class="meta">Machine Learning Intern</div>
+            <div class="meta">Machine Learning Intern &bull; Auto Insurance Fraud Detection</div>
           </div>
           <div class="acc-right"><span>07/2023 - 09/2023</span><span class="chev"><i class="fa-solid fa-chevron-down"></i></span></div>
-        </summary>
+        </button>
         <div class="acc-body">
-          <p>I preprocessed structured datasets and implemented classification models for auto insurance fraud detection, improving model performance by 34% via hyperparameter tuning and feature selection.</p>
-          <div class="tags-row">
-            <span class="pill">Scikit-learn</span><span class="pill">Classification</span><span class="pill">Feature Engineering</span>
+          <div class="acc-body-inner">
+            <ul>
+              <li>Preprocessed structured datasets (encoding, scaling, imputation) for fraud detection use cases.</li>
+              <li>Improved model performance by +34% using cross-validation, hyperparameter tuning, and feature optimization.</li>
+              <li>Implemented classification models and evaluated performance using appropriate metrics.</li>
+              <li>Applied dimensionality reduction and feature selection techniques to enhance predictive power.</li>
+            </ul>
+            <div class="tags-row">
+              <span class="pill pill-sm">Scikit-learn</span><span class="pill pill-sm">Classification</span><span class="pill pill-sm">Feature Engineering</span><span class="pill pill-sm">Dimensionality Reduction</span>
+            </div>
           </div>
         </div>
-      </details>
+      </div>
     </div>
   </section>
 
@@ -556,49 +652,56 @@
       <div class="eyebrow"><span class="eyebrow-dot"></span>Projects</div>
       <h2 class="section-title">Featured work</h2>
 
-      <div class="project-grid">
-        <div class="project-card">
-          <div class="project-banner" style="background: linear-gradient(135deg, var(--accent), var(--accent-2));">
-            <span class="badge"><i class="fa-solid fa-lock-open"></i> Open source</span>
-          </div>
-          <div class="project-body">
-            <h3>LLM-powered Skills Intelligence</h3>
-            <p>I built a data pipeline on GCP (Cloud Run, BigQuery) that collects and analyzes 5,000+ data engineering job offers in France using Qwen 3b to automatically extract and normalize skills.</p>
-            <div class="metric"><span class="metric-num">5k+</span><span class="metric-label">job offers analyzed</span></div>
-            <div class="tags-row"><span class="pill">GCP</span><span class="pill">LLM</span><span class="pill">Python</span></div>
-            <a href="https://github.com/bichiouyosr/skill-gap-analyzer" target="_blank" class="github-link">
+      <div class="project-list">
+        <div class="project-row">
+          <div class="project-num">01</div>
+          <div>
+            <div class="project-top">
+              <h3>LLM-powered Data Engineering Skills Intelligence</h3>
+              <span class="badge-inline"><i class="fa-solid fa-lock-open"></i> Open source</span>
+            </div>
+            <p>An automated pipeline on GCP that ingests and processes 5,000+ job postings from the France Travail API, then uses Qwen 3b to parse job descriptions and identify, normalize, and classify technical skills.</p>
+            <ul class="project-points">
+              <li>Built on Cloud Run, BigQuery, Cloud Storage, and Cloud Scheduler.</li>
+              <li>A Looker Studio dashboard tracks and ranks trending Data Engineering skills by frequency.</li>
+              <li>Fully automated daily updates, continuously monitoring the French data engineering job market.</li>
+            </ul>
+            <div class="metric-inline"><span class="metric-num">5,000+</span><span class="metric-label">job postings processed</span></div>
+            <div class="tags-row"><span class="pill pill-sm">GCP</span><span class="pill pill-sm">LLM</span><span class="pill pill-sm">Python</span></div>
+            <div><a href="https://github.com/bichiouyosr/skill-gap-analyzer" target="_blank" class="github-link">
               <i class="fa-brands fa-github"></i> View Code
-            </a>
+            </a></div>
           </div>
         </div>
 
-        <div class="project-card">
-          <div class="project-banner" style="background: linear-gradient(135deg, var(--accent-2), #e6b8d6);">
-            <span class="badge"><i class="fa-solid fa-lock-open"></i> Open source</span>
-          </div>
-          <div class="project-body">
-            <h3>Apple Stock Data Pipeline</h3>
+        <div class="project-row">
+          <div class="project-num">02</div>
+          <div>
+            <div class="project-top">
+              <h3>Apple Stock Data Pipeline</h3>
+              <span class="badge-inline"><i class="fa-solid fa-lock-open"></i> Open source</span>
+            </div>
             <p>An automated data pipeline designed to extract, transform, and load Apple stock market data for continuous analysis and visualization.</p>
-            <p class="metric-text">Automated ETL Process</p>
-            <div class="tags-row"><span class="pill">Data Engineering</span><span class="pill">Python</span><span class="pill">ETL</span></div>
-            <a href="https://github.com/bichiouyosr/apple-stock-pipeline" target="_blank" class="github-link">
+            <div class="tags-row"><span class="pill pill-sm">Data Engineering</span><span class="pill pill-sm">Python</span><span class="pill pill-sm">ETL</span></div>
+            <div><a href="https://github.com/bichiouyosr/apple-stock-pipeline" target="_blank" class="github-link">
               <i class="fa-brands fa-github"></i> View Code
-            </a>
+            </a></div>
           </div>
         </div>
 
-        <div class="project-card">
-          <div class="project-banner" style="background: linear-gradient(135deg, #c98d3a, var(--accent));">
-            <span class="badge"><i class="fa-solid fa-lock-open"></i> Open source</span>
-          </div>
-          <div class="project-body">
-            <h3>Paris Property Price Predictor</h3>
+        <div class="project-row">
+          <div class="project-num">03</div>
+          <div>
+            <div class="project-top">
+              <h3>Paris Property Price Predictor</h3>
+              <span class="badge-inline"><i class="fa-solid fa-lock-open"></i> Open source</span>
+            </div>
             <p>A model that predicts the asking price of a Paris apartment from its listing details. The harder part was the data itself: about one row in twelve had to be cleaned or dropped before a Random Forest could reach an average error of about &euro;45,000.</p>
-            <div class="metric"><span class="metric-num">100k</span><span class="metric-label">Paris listings analyzed</span></div>
-            <div class="tags-row"><span class="pill">Python</span><span class="pill">Random Forest</span><span class="pill">Data Cleaning</span></div>
-            <a href="https://github.com/bichiouyosr/paris-property-price_prediction" target="_blank" class="github-link">
+            <div class="metric-inline"><span class="metric-num">100k</span><span class="metric-label">Paris listings analyzed</span></div>
+            <div class="tags-row"><span class="pill pill-sm">Python</span><span class="pill pill-sm">Random Forest</span><span class="pill pill-sm">Data Cleaning</span></div>
+            <div><a href="https://github.com/bichiouyosr/paris-property-price_prediction" target="_blank" class="github-link">
               <i class="fa-brands fa-github"></i> View Code
-            </a>
+            </a></div>
           </div>
         </div>
       </div>
@@ -611,33 +714,45 @@
       <div class="eyebrow"><span class="eyebrow-dot"></span>Education</div>
       <h2 class="section-title">Where I studied</h2>
 
-      <details class="acc-item" open>
-        <summary>
+      <div class="acc-item">
+        <button class="acc-summary" type="button" aria-expanded="false">
           <div class="acc-avatar"><img src="./assets/logos/edc.png" alt="EDC Paris Business School logo" /></div>
           <div class="acc-head-text">
             <h3>EDC Paris Business School</h3>
-            <div class="meta">Master in Data Science &amp; Business Analysis &bull; Paris</div>
+            <div class="meta">Master's in Data Science &amp; Business Analysis &bull; Paris</div>
           </div>
-          <div class="acc-right"><span>2025 - 2026</span><span class="chev"><i class="fa-solid fa-chevron-down"></i></span></div>
-        </summary>
+          <div class="acc-right"><span>2024 - 2026</span><span class="chev"><i class="fa-solid fa-chevron-down"></i></span></div>
+        </button>
         <div class="acc-body">
-          <p>Graduate program combining data science methods with business analysis, focused on turning models into decisions organizations actually use.</p>
+          <div class="acc-body-inner">
+            <p>Graduate program combining data science methods with business analysis, focused on turning models into decisions organizations actually use.</p>
+            <div class="tags-row">
+              <span class="pill pill-sm">Cloud Computing</span><span class="pill pill-sm">ML</span><span class="pill pill-sm">Big Data</span><span class="pill pill-sm">AI for Cybersecurity</span><span class="pill pill-sm">Data Engineering</span><span class="pill pill-sm">Time Series</span><span class="pill pill-sm">Deep Learning</span><span class="pill pill-sm">Data Viz</span><span class="pill pill-sm">NLP</span>
+            </div>
+          </div>
         </div>
-      </details>
+      </div>
 
-      <details class="acc-item">
-        <summary>
+      <div class="acc-item">
+        <button class="acc-summary" type="button" aria-expanded="false">
           <div class="acc-avatar"><img src="./assets/logos/insat.png" alt="INSAT logo" /></div>
           <div class="acc-head-text">
             <h3>INSAT</h3>
             <div class="meta">National Engineering Diploma, Intelligent Systems (AI) &bull; Tunis</div>
           </div>
           <div class="acc-right"><span>2019 - 2024</span><span class="chev"><i class="fa-solid fa-chevron-down"></i></span></div>
-        </summary>
+        </button>
         <div class="acc-body">
-          <p>Engineering degree with a focus on artificial intelligence and intelligent systems, the foundation for the machine learning and data engineering work that followed.</p>
+          <div class="acc-body-inner">
+            <p>Engineering degree with a focus on artificial intelligence and intelligent systems, the foundation for the machine learning and data engineering work that followed.</p>
+            <div class="tags-row">
+              <span class="pill pill-sm">IoT</span><span class="pill pill-sm">Risk Analysis</span><span class="pill pill-sm">AI</span><span class="pill pill-sm">Probability &amp; Statistics</span><span class="pill pill-sm">Database</span><span class="pill pill-sm">Programming</span><span class="pill pill-sm">Calculus</span><span class="pill pill-sm">Linear Algebra</span><span class="pill pill-sm">OOP</span>
+            </div>
+          </div>
         </div>
-      </details>
+      </div>
+
+      <p class="languages-line"><strong>Languages:</strong> English (C1) &bull; French (Bilingual)</p>
     </div>
   </section>
 
@@ -646,10 +761,11 @@
     <div class="container">
       <div class="eyebrow"><span class="eyebrow-dot"></span>Contact</div>
       <h2 class="section-title">Say hello</h2>
-      <p style="font-size: 1.1rem; color: var(--ink-soft); margin-bottom: 30px; max-width: 560px;">Looking for a Data Scientist from August 2026, or just curious about my work? Write to me, or grab a copy of my resume.</p>
+      <p style="font-size: 1.1rem; color: var(--ink-soft); margin-bottom: 30px; max-width: 560px;">Looking for a Data Science Engineer from August 2026, or just curious about my work? Write to me, or grab a copy of my resume.</p>
 
       <div class="contact-tiles">
-        <a href="mailto:yoser.bichiou@gmail.com" class="tile"><i class="fa-solid fa-envelope"></i> Send me an email</a>
+        <a href="mailto:yoser.bichiou@gmail.com" class="tile"><i class="fa-solid fa-envelope"></i> Email</a>
+        <a href="tel:+33628376235" class="tile"><i class="fa-solid fa-phone"></i> +33 6 28 37 62 35</a>
         <a href="https://linkedin.com/in/yosrbichiou" target="_blank" rel="noopener noreferrer" class="tile"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
         <a href="https://github.com/bichiouyosr" target="_blank" rel="noopener noreferrer" class="tile"><i class="fa-brands fa-github"></i> GitHub</a>
       </div>
@@ -745,7 +861,7 @@
 
     // Typewriter role cycler
     const roleEl = document.getElementById("role-text");
-    const roles = ["Data Scientist in Paris", "Machine Learning Engineer", "Data Pipeline Builder"];
+    const roles = ["Data Science Engineer", "Machine Learning Engineer", "Data Pipeline Builder"];
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) {
       roleEl.textContent = roles[0];
@@ -763,105 +879,16 @@
       typeRole();
     }
 
-    // Hero background: a layered neural network, pulses traveling along its edges
-    const canvas = document.getElementById("particles");
-    if (canvas && !reduceMotion) {
-      const ctx = canvas.getContext("2d");
-      let w, h, layers, edges, pulses;
-
-      function resize() {
-        const hero = document.getElementById("hero");
-        w = canvas.width = hero.offsetWidth;
-        h = canvas.height = hero.offsetHeight;
-      }
-
-      function buildNetwork() {
-        const layerSizes = [4, 6, 6, 5, 3];
-        const marginX = w * 0.06;
-        const usableW = w - marginX * 2;
-        layers = layerSizes.map((count, li) => {
-          const x = marginX + (usableW * li) / (layerSizes.length - 1);
-          const nodes = [];
-          for (let i = 0; i < count; i++) {
-            const y = (h * (i + 1)) / (count + 1) + (Math.random() - 0.5) * h * 0.04;
-            nodes.push({ x, y });
-          }
-          return nodes;
-        });
-
-        edges = [];
-        for (let li = 0; li < layers.length - 1; li++) {
-          layers[li].forEach((from, fi) => {
-            const targets = 2 + Math.floor(Math.random() * 2);
-            for (let t = 0; t < targets; t++) {
-              const to = layers[li + 1][Math.floor(Math.random() * layers[li + 1].length)];
-              edges.push({ from, to, layer: li });
-            }
-          });
-        }
-        pulses = [];
-      }
-
-      function spawnPulse() {
-        const edge = edges[Math.floor(Math.random() * edges.length)];
-        pulses.push({ edge, t: 0, speed: 0.012 + Math.random() * 0.01 });
-      }
-
-      function colors() {
-        const dark = root.getAttribute("data-theme") === "dark";
-        return dark
-          ? { node: "#f28fb0", edge: "rgba(242,143,176,0.16)", pulse: "#ffd9e8" }
-          : { node: "#d1487a", edge: "rgba(209,72,122,0.14)", pulse: "#ffffff" };
-      }
-
-      let frame = 0;
-      function tick() {
-        frame++;
-        ctx.clearRect(0, 0, w, h);
-        const { node, edge: edgeColor, pulse: pulseColor } = colors();
-
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = edgeColor;
-        edges.forEach((e) => {
-          ctx.beginPath();
-          ctx.moveTo(e.from.x, e.from.y);
-          ctx.lineTo(e.to.x, e.to.y);
-          ctx.stroke();
-        });
-
-        layers.flat().forEach((n) => {
-          ctx.fillStyle = node;
-          ctx.globalAlpha = 0.75;
-          ctx.beginPath();
-          ctx.arc(n.x, n.y, 3.2, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.globalAlpha = 1;
-        });
-
-        if (frame % 26 === 0 && pulses.length < 14) spawnPulse();
-        pulses.forEach((p) => { p.t += p.speed; });
-        pulses = pulses.filter((p) => p.t < 1);
-        pulses.forEach((p) => {
-          const x = p.edge.from.x + (p.edge.to.x - p.edge.from.x) * p.t;
-          const y = p.edge.from.y + (p.edge.to.y - p.edge.from.y) * p.t;
-          ctx.fillStyle = pulseColor;
-          ctx.shadowColor = pulseColor;
-          ctx.shadowBlur = 8;
-          ctx.beginPath();
-          ctx.arc(x, y, 2.6, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.shadowBlur = 0;
-        });
-
-        requestAnimationFrame(tick);
-      }
-
-      resize(); buildNetwork(); tick();
-      window.addEventListener("resize", () => { resize(); buildNetwork(); });
-      if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(() => { resize(); buildNetwork(); });
-      }
-    }
+    // Experience / Education rows: hover expands on desktop (CSS handles
+    // that); tapping toggles a class so touch devices and keyboard users
+    // can open them too.
+    document.querySelectorAll(".acc-summary").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const item = btn.closest(".acc-item");
+        const isOpen = item.classList.toggle("force-open");
+        btn.setAttribute("aria-expanded", String(isOpen));
+      });
+    });
   </script>
 </body>
 </html>
