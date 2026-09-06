@@ -312,6 +312,15 @@
       background: var(--accent-soft); margin-top: 4px;
     }
     .github-link:hover { background: var(--accent); color: #fff; }
+    .project-main { display: grid; grid-template-columns: 1fr 300px; gap: 30px; align-items: start; }
+    .project-shot img {
+      width: 100%; border-radius: 10px; border: 1px solid var(--line);
+      box-shadow: 0 14px 30px var(--shadow); object-fit: cover;
+    }
+    @media (max-width: 900px) {
+      .project-main { grid-template-columns: 1fr; }
+      .project-shot { order: -1; }
+    }
     @media (max-width: 600px) {
       .project-row { grid-template-columns: 1fr; }
       .project-num { font-size: 1.4rem; }
@@ -419,9 +428,9 @@
         </div>
 
         <div class="about-text">
-          <p>I'm a <mark>Data Science Engineer</mark> and Industrial Engineer with a strong background in intelligent systems. I started my journey analyzing sensor data and IoT, and now I build predictive models and robust data pipelines for large-scale enterprise operations.</p>
-          <p>I build data intelligence for businesses: <mark>time-series forecasting</mark>, <mark>OCR and similarity-matching pipelines</mark>, and ETL/ELT pipelines that run in production on millions of records using Databricks, Snowflake, and GCP.</p>
-          <p>One question drives my work: how can we bridge the gap between complex mathematical models and real-world business value? In an industry driven by efficiency, the right data pipeline saves actual time and money.</p>
+          <p>I'm a <mark>Data Scientist and Data Engineer</mark> with a background in software engineering. I like building things that actually get used, not left in a notebook.</p>
+          <p>Most of what I do is <mark>end to end</mark>: I take a pipeline from a messy raw dataset all the way to something running in production, on a schedule, that people actually rely on. I build the <mark>machine learning models</mark> themselves, but just as often the real work is the data cleaning and the plumbing around them.</p>
+          <p>I also spend a lot of time on the last step: turning a model's output into a chart or a dashboard someone who isn't a data scientist can actually read and act on. A result nobody understands doesn't help anyone, so I try to make my work fast to build and easy to use.</p>
         </div>
       </div>
     </div>
@@ -549,7 +558,6 @@
     <div class="container">
       <div class="eyebrow"><span class="eyebrow-dot"></span>Experience</div>
       <h2 class="section-title">Where I worked</h2>
-      <p style="color:var(--ink-soft); font-size:0.92rem; margin-top:-30px; margin-bottom:10px;">Hover a row to see the details (tap on mobile).</p>
 
       <div class="acc-item">
         <button class="acc-summary" type="button" aria-expanded="false">
@@ -636,22 +644,27 @@
       <div class="project-list">
         <div class="project-row">
           <div class="project-num">01</div>
-          <div>
-            <div class="project-top">
-              <h3>LLM-powered Data Engineering Skills Intelligence</h3>
-              <span class="badge-inline"><i class="fa-solid fa-lock-open"></i> Open source</span>
+          <div class="project-main">
+            <div class="project-text">
+              <div class="project-top">
+                <h3>LLM-powered Data Engineering Skills Intelligence</h3>
+                <span class="badge-inline"><i class="fa-solid fa-lock-open"></i> Open source</span>
+              </div>
+              <p>An automated pipeline on GCP that ingests and processes 5,000+ job postings from the France Travail API, then uses Qwen 3b to parse job descriptions and identify, normalize, and classify technical skills.</p>
+              <ul class="project-points">
+                <li>Built on Cloud Run, BigQuery, Cloud Storage, and Cloud Scheduler.</li>
+                <li>A Looker Studio dashboard tracks and ranks trending Data Engineering skills by frequency.</li>
+                <li>Fully automated daily updates, continuously monitoring the French data engineering job market.</li>
+              </ul>
+              <div class="metric-inline"><span class="metric-num">5,000+</span><span class="metric-label">job postings processed</span></div>
+              <div class="tags-row"><span class="pill pill-sm">GCP</span><span class="pill pill-sm">LLM</span><span class="pill pill-sm">Python</span></div>
+              <div><a href="https://github.com/bichiouyosr/skill-gap-analyzer" target="_blank" class="github-link">
+                <i class="fa-brands fa-github"></i> View Code
+              </a></div>
             </div>
-            <p>An automated pipeline on GCP that ingests and processes 5,000+ job postings from the France Travail API, then uses Qwen 3b to parse job descriptions and identify, normalize, and classify technical skills.</p>
-            <ul class="project-points">
-              <li>Built on Cloud Run, BigQuery, Cloud Storage, and Cloud Scheduler.</li>
-              <li>A Looker Studio dashboard tracks and ranks trending Data Engineering skills by frequency.</li>
-              <li>Fully automated daily updates, continuously monitoring the French data engineering job market.</li>
-            </ul>
-            <div class="metric-inline"><span class="metric-num">5,000+</span><span class="metric-label">job postings processed</span></div>
-            <div class="tags-row"><span class="pill pill-sm">GCP</span><span class="pill pill-sm">LLM</span><span class="pill pill-sm">Python</span></div>
-            <div><a href="https://github.com/bichiouyosr/skill-gap-analyzer" target="_blank" class="github-link">
-              <i class="fa-brands fa-github"></i> View Code
-            </a></div>
+            <div class="project-shot">
+              <img src="./assets/projects/skill-gap-dashboard.png" alt="Skill Gap Dashboard screenshot" />
+            </div>
           </div>
         </div>
 
@@ -672,17 +685,22 @@
 
         <div class="project-row">
           <div class="project-num">03</div>
-          <div>
-            <div class="project-top">
-              <h3>Paris Property Price Predictor</h3>
-              <span class="badge-inline"><i class="fa-solid fa-lock-open"></i> Open source</span>
+          <div class="project-main">
+            <div class="project-text">
+              <div class="project-top">
+                <h3>Paris Property Price Predictor</h3>
+                <span class="badge-inline"><i class="fa-solid fa-lock-open"></i> Open source</span>
+              </div>
+              <p>A model that predicts the asking price of a Paris apartment from its listing details. The harder part was the data itself: about one row in twelve had to be cleaned or dropped before a Random Forest could reach an average error of about &euro;45,000.</p>
+              <div class="metric-inline"><span class="metric-num">100k</span><span class="metric-label">Paris listings analyzed</span></div>
+              <div class="tags-row"><span class="pill pill-sm">Python</span><span class="pill pill-sm">Random Forest</span><span class="pill pill-sm">Data Cleaning</span></div>
+              <div><a href="https://github.com/bichiouyosr/paris-property-price_prediction" target="_blank" class="github-link">
+                <i class="fa-brands fa-github"></i> View Code
+              </a></div>
             </div>
-            <p>A model that predicts the asking price of a Paris apartment from its listing details. The harder part was the data itself: about one row in twelve had to be cleaned or dropped before a Random Forest could reach an average error of about &euro;45,000.</p>
-            <div class="metric-inline"><span class="metric-num">100k</span><span class="metric-label">Paris listings analyzed</span></div>
-            <div class="tags-row"><span class="pill pill-sm">Python</span><span class="pill pill-sm">Random Forest</span><span class="pill pill-sm">Data Cleaning</span></div>
-            <div><a href="https://github.com/bichiouyosr/paris-property-price_prediction" target="_blank" class="github-link">
-              <i class="fa-brands fa-github"></i> View Code
-            </a></div>
+            <div class="project-shot">
+              <img src="./assets/projects/paris-price-model-comparison.png" alt="Model comparison chart from the Paris property price predictor" />
+            </div>
           </div>
         </div>
       </div>
@@ -742,11 +760,9 @@
     <div class="container">
       <div class="eyebrow"><span class="eyebrow-dot"></span>Contact</div>
       <h2 class="section-title">Say hello</h2>
-      <p style="font-size: 1.1rem; color: var(--ink-soft); margin-bottom: 30px; max-width: 560px;">Looking for a Data Science Engineer from August 2026, or just curious about my work? Write to me, or grab a copy of my resume.</p>
+      <p style="font-size: 1.1rem; color: var(--ink-soft); margin-bottom: 30px; max-width: 560px;">Looking for a Data Science Engineer from August 2026, or just curious about my work? Connect with me on LinkedIn, or grab a copy of my resume.</p>
 
       <div class="contact-tiles">
-        <a href="mailto:yoser.bichiou@gmail.com" class="tile"><i class="fa-solid fa-envelope"></i> Email</a>
-        <a href="tel:+33628376235" class="tile"><i class="fa-solid fa-phone"></i> +33 6 28 37 62 35</a>
         <a href="https://linkedin.com/in/yosrbichiou" target="_blank" rel="noopener noreferrer" class="tile"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
         <a href="https://github.com/bichiouyosr" target="_blank" rel="noopener noreferrer" class="tile"><i class="fa-brands fa-github"></i> GitHub</a>
       </div>
