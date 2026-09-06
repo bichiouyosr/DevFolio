@@ -85,23 +85,10 @@
     section { padding: 90px 0; scroll-margin-top: 76px; position: relative; }
     .bg-alt { background: color-mix(in srgb, var(--bg-alt) 82%, transparent); }
 
-    /* Ambient background: soft moving color fields, visible through the
-       whole page rather than one section — the AI motif here is "diffuse
-       generative color," not a network diagram. */
-    .ambient-layer { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
-    .blob { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.32; }
-    [data-theme="dark"] .blob { opacity: 0.4; }
-    .blob-a { width: 480px; height: 480px; background: var(--accent); top: -160px; left: -120px; animation: blobA 30s ease-in-out infinite; }
-    .blob-b { width: 420px; height: 420px; background: var(--accent-2); top: 20%; right: -160px; animation: blobB 36s ease-in-out infinite; }
-    .blob-c { width: 380px; height: 380px; background: var(--gold); top: 55%; left: 10%; animation: blobC 26s ease-in-out infinite; }
-    .blob-d { width: 340px; height: 340px; background: var(--accent-2); bottom: -140px; right: 8%; animation: blobA 33s ease-in-out infinite reverse; }
-    .blob-e { width: 300px; height: 300px; background: var(--accent); bottom: 10%; left: -100px; animation: blobB 24s ease-in-out infinite reverse; }
-    @keyframes blobA { 0%, 100% { transform: translate(0,0) scale(1); } 50% { transform: translate(70px, 90px) scale(1.18); } }
-    @keyframes blobB { 0%, 100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-60px, 70px) scale(0.88); } }
-    @keyframes blobC { 0%, 100% { transform: translate(0,0) scale(1); } 50% { transform: translate(60px, -80px) scale(1.12); } }
-    @media (prefers-reduced-motion: reduce) { .blob { animation: none; } }
+    /* Ambient background: a neural network spanning the whole page, fixed
+       to the viewport so it stays visible behind every section on scroll. */
     body > * { position: relative; z-index: 1; }
-    .ambient-layer { z-index: 0; }
+    #network-bg { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
 
     .eyebrow {
       display: flex; align-items: center; gap: 9px;
@@ -364,13 +351,7 @@
 </head>
 <body>
 
-  <div class="ambient-layer" aria-hidden="true">
-    <span class="blob blob-a"></span>
-    <span class="blob blob-b"></span>
-    <span class="blob blob-c"></span>
-    <span class="blob blob-d"></span>
-    <span class="blob blob-e"></span>
-  </div>
+  <canvas id="network-bg" aria-hidden="true"></canvas>
 
   <!-- NAV BAR -->
   <nav id="navbar">
@@ -889,6 +870,107 @@
         btn.setAttribute("aria-expanded", String(isOpen));
       });
     });
+
+    // Full-page neural network background: layered nodes with sparse
+    // edges and pulses traveling along them, fixed to the viewport so
+    // it stays visible behind every section as the page scrolls.
+    const netCanvas = document.getElementById("network-bg");
+    if (netCanvas && !reduceMotion) {
+      const ctx = netCanvas.getContext("2d");
+      let w, h, layers, edges, pulses;
+
+      function resize() {
+        w = netCanvas.width = window.innerWidth;
+        h = netCanvas.height = window.innerHeight;
+      }
+
+      function buildNetwork() {
+        const layerSizes = [5, 7, 8, 7, 5, 3];
+        const marginX = w * 0.04;
+        const usableW = w - marginX * 2;
+        layers = layerSizes.map((count, li) => {
+          const x = marginX + (usableW * li) / (layerSizes.length - 1);
+          const nodes = [];
+          for (let i = 0; i < count; i++) {
+            const y = (h * (i + 1)) / (count + 1) + (Math.random() - 0.5) * h * 0.05;
+            nodes.push({ x, y });
+          }
+          return nodes;
+        });
+
+        edges = [];
+        for (let li = 0; li < layers.length - 1; li++) {
+          layers[li].forEach((from) => {
+            const targets = 1 + Math.floor(Math.random() * 2);
+            for (let t = 0; t < targets; t++) {
+              const to = layers[li + 1][Math.floor(Math.random() * layers[li + 1].length)];
+              edges.push({ from, to });
+            }
+          });
+        }
+        pulses = [];
+      }
+
+      function spawnPulse() {
+        const edge = edges[Math.floor(Math.random() * edges.length)];
+        pulses.push({ edge, t: 0, speed: 0.01 + Math.random() * 0.008 });
+      }
+
+      function colors() {
+        const dark = root.getAttribute("data-theme") === "dark";
+        return dark
+          ? { node: "#f28fb0", edge: "rgba(242,143,176,0.14)", pulse: "#ffd9e8" }
+          : { node: "#d1487a", edge: "rgba(209,72,122,0.12)", pulse: "#ffffff" };
+      }
+
+      let frame = 0;
+      function tick() {
+        frame++;
+        ctx.clearRect(0, 0, w, h);
+        const { node, edge: edgeColor, pulse: pulseColor } = colors();
+
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = edgeColor;
+        edges.forEach((e) => {
+          ctx.beginPath();
+          ctx.moveTo(e.from.x, e.from.y);
+          ctx.lineTo(e.to.x, e.to.y);
+          ctx.stroke();
+        });
+
+        layers.flat().forEach((n) => {
+          ctx.fillStyle = node;
+          ctx.globalAlpha = 0.7;
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, 3, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.globalAlpha = 1;
+        });
+
+        if (frame % 20 === 0 && pulses.length < 26) spawnPulse();
+        pulses.forEach((p) => { p.t += p.speed; });
+        pulses = pulses.filter((p) => p.t < 1);
+        pulses.forEach((p) => {
+          const x = p.edge.from.x + (p.edge.to.x - p.edge.from.x) * p.t;
+          const y = p.edge.from.y + (p.edge.to.y - p.edge.from.y) * p.t;
+          ctx.fillStyle = pulseColor;
+          ctx.shadowColor = pulseColor;
+          ctx.shadowBlur = 8;
+          ctx.beginPath();
+          ctx.arc(x, y, 2.4, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        });
+
+        requestAnimationFrame(tick);
+      }
+
+      resize(); buildNetwork(); tick();
+      window.addEventListener("resize", () => { resize(); buildNetwork(); });
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => { resize(); buildNetwork(); });
+      }
+    }
   </script>
 </body>
 </html>
